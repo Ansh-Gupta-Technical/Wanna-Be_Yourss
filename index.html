@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanna Be Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Playfair+Display&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #f7a4b7, #ffb6c1);
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: white;
+            overflow: auto;
+            height: 100%;
+        }
+
+        .heart {
+            font-size: 160px;
+            animation: heartBeat 2s infinite ease-in-out;
+            color: #ff385c;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .title {
+            font-size: 80px;
+            font-family: 'Great Vibes', cursive;
+            color: #ff7e5f;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
+            margin-top: 120px;
+        }
+
+        .message {
+            font-size: 28px;
+            margin-top: 60px;
+            padding: 0 30px;
+            line-height: 1.8;
+            color: #ff7e5f;
+            font-weight: normal;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            animation: fadeIn 3s ease-out;
+            border: 5px solid #ff7e5f;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1); /* Light background */
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .message::before {
+            content: "💖";
+            position: absolute;
+            top: -20px;
+            left: 15px;
+            font-size: 35px;
+            animation: bounceSticker 1s infinite;
+        }
+
+        .message:::before {
+        content: "💖";
+        position: absolute;
+        bottom: -20px;
+        right: 15px;
+        font-size: 35px;
+        animation: bounceSticker 1s infinite;
+        } 
+
+        @keyframes bounceSticker {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .box {
+            position: relative;
+            width: 250px;
+            height: 120px;
+            background-color: #ff385c;
+            border-radius: 10px;
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            font-family: 'Great Vibes', cursive;
+            cursor: pointer;
+            overflow: hidden;
+            animation: boxAnim 1s ease-out;
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes boxAnim {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .click-message {
+            position: absolute;
+            top: 20px;
+            font-size: 22px;
+            font-family: 'Playfair Display', serif;
+            animation: clickTextAnim 2s ease-in-out;
+        }
+
+        @keyframes clickTextAnim {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .reveal-message {
+            display: none;
+            font-size: 20px;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            margin-top: 10px;
+            animation: revealTextAnim 2s ease-in-out;
+        }
+
+        @keyframes revealTextAnim {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: popupAnim 1s ease-out;
+        }
+
+        @keyframes popupAnim {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            width: 50%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            animation: popupContentAnim 1.5s ease-in-out;
+        }
+
+        @keyframes popupContentAnim {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .popup h2 {
+            font-size: 25px;
+            color: #24211f;
+            margin-bottom: 25px;
+            font-family: 'Dancing Script', cursive;    
+        }
+
+
+        .popup button {
+            background-color: #f783f3;
+            color: white;
+            font-size: 24px;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #d15ac1;
+            transform: scale(1.1);
+        }
+
+        .sticker {
+            position: absolute;
+            top: -40px;
+            right: 10px;
+            animation: bounce 2s infinite ease-in-out;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .click-to-open {
+            font-size: 28px;
+            font-family: 'Great Vibes', cursive;
+            color: #fff;
+            background-color: #ff385c;
+            padding: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: clickToOpenAnim 1.5s ease-in-out;
+            transition: transform 0.3s ease;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes clickToOpenAnim {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .click-to-open:hover {
+            transform: scale(1.1);
+        }
+
+        .falling-text {
+            display: none;
+            font-size: 24px;
+            color: white;
+            animation: fallingTextAnim 1.5s ease-out;
+        }
+
+        @keyframes fallingTextAnim {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart-sticker {
+            position: absolute;
+            bottom: -30px;
+            left: 15px;
+            font-size: 40px;
+            animation: floatUp 3s infinite ease-in-out;
+        }
+
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart">❤️</div>
+
+    <div class="title">Wanna Be Yours🥹</div>
+
+    <div class="message">
+        <p>In a world full of infinite possibilities, you are my favorite constant. Just as every great program needs a solid foundation, my heart found its home with you. Your smile brightens my darkest days, and your laughter is the sweetest melody that fills my soul. Every moment spent with you feels like magic, where time stands still and everything else fades away. I want to be by your side through all of life’s adventures, from the mundane to the extraordinary. Just like how a beautiful story unfolds, I dream of writing our own together—filled with laughter, love, and countless memories. You inspire me to be the best version of myself, and I can’t imagine my life without you. I want to be the one who supports your dreams, shares your joys, and stands by you during the tough times. With you, I feel like I can conquer anything. So, from the bottom of my heart, I want to say: Just wanna be yours. Let’s embark on this journey together and create a love story that’s uniquely ours. You truly make my heart feel complete! My heart beats faster every time I think of you. You have this magic, this radiance that makes everything feel like a beautiful dream. From the moment I saw you, I knew you were the one who could fill my life with endless happiness. Every smile, every laugh, every word—everything about you pulls me deeper into a world I never want to leave. Would you be mine, forever and always, and make my heart yours? 💖</p>
+    </div>
+
+    <div class="box">
+        <div class="click-to-open" id="clickToOpen">Click to Open</div>
+        <div class="falling-text" id="fallingText">Click for Surprise 🎁</div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2>Can I Play a Sweet Song for You? 🎶💖
+             It's a special song just for you! 💕</h2>
+            <button onclick="playMusic()">Yes</button>
+            <button onclick="playMusic()">No</button>
+        </div>
+    </div>
+
+    <!-- Cute Sticker -->
+    <img src="op.png" alt="Sticker" class="sticker" />
+
+    <audio id="backgroundMusic" src="hbd.mp3"></audio>
+
+    <script>
+        // On click, display the falling text
+        document.getElementById("clickToOpen").onclick = function() {
+            document.getElementById("fallingText").style.display = "block";
+            document.getElementById("fallingText").classList.add('falling-text');
+            setTimeout(function() {
+                document.getElementById("fallingText").innerHTML = "Click for Surprise 🎁";
+            }, 500);
+        };
+
+        // Show music popup after 2 seconds
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('popup').style.display = 'flex';
+            }, 2000); // Popup appears after 2 seconds
+        };
+
+        // Function to play music
+        function playMusic() {
+            var music = document.getElementById('backgroundMusic');
+            music.play();
+
+            // Close the popup after music starts
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // Function to open the surprise site
+        function openSurprise() {
+            window.location.href = " https://ansh-gupta-technical.github.io/Do-you/"; // Replace with the actual URL
+        }
+
+        // Update falling text behavior
+        document.getElementById("fallingText").onclick = openSurprise;
+    </script>
+</body>
+</html>

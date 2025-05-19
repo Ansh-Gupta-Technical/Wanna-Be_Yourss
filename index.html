@@ -3,317 +3,666 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanna Be Yours</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Playfair+Display&display=swap" rel="stylesheet">
+    <title>My Heart Is Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Playfair+Display&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+        :root {
+            --primary-pink: #ff4d79;
+            --secondary-pink: #ff85a2;
+            --dark-pink: #e84363;
+            --light-pink: #ffdee9;
+            --gold: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: linear-gradient(to right, #f7a4b7, #ffb6c1);
+            background: linear-gradient(135deg, #f5c3d2, #f8a5c2, #f48fb1);
             font-family: 'Playfair Display', serif;
-            text-align: center;
-            color: white;
-            overflow: auto;
-            height: 100%;
-        }
-
-        .heart {
-            font-size: 160px;
-            animation: heartBeat 2s infinite ease-in-out;
-            color: #ff385c;
-        }
-
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        .title {
-            font-size: 80px;
-            font-family: 'Great Vibes', cursive;
-            color: #ff7e5f;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
-            margin-top: 120px;
-        }
-
-        .message {
-            font-size: 28px;
-            margin-top: 60px;
-            padding: 0 30px;
-            line-height: 1.8;
-            color: #ff7e5f;
-            font-weight: normal;
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-            animation: fadeIn 3s ease-out;
-            border: 5px solid #ff7e5f;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1); /* Light background */
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .message::before {
-            content: "💖";
-            position: absolute;
-            top: -20px;
-            left: 15px;
-            font-size: 35px;
-            animation: bounceSticker 1s infinite;
-        }
-
-        .message:::before {
-        content: "💖";
-        position: absolute;
-        bottom: -20px;
-        right: 15px;
-        font-size: 35px;
-        animation: bounceSticker 1s infinite;
-        } 
-
-        @keyframes bounceSticker {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .box {
-            position: relative;
-            width: 250px;
-            height: 120px;
-            background-color: #ff385c;
-            border-radius: 10px;
-            margin: 40px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 22px;
-            font-family: 'Great Vibes', cursive;
-            cursor: pointer;
-            overflow: hidden;
-            animation: boxAnim 1s ease-out;
-            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes boxAnim {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
-        }
-
-        .click-message {
-            position: absolute;
-            top: 20px;
-            font-size: 22px;
-            font-family: 'Playfair Display', serif;
-            animation: clickTextAnim 2s ease-in-out;
-        }
-
-        @keyframes clickTextAnim {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .reveal-message {
-            display: none;
-            font-size: 20px;
-            color: white;
-            font-family: 'Playfair Display', serif;
-            margin-top: 10px;
-            animation: revealTextAnim 2s ease-in-out;
-        }
-
-        @keyframes revealTextAnim {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .popup {
+        /* Floating Hearts Background */
+        .floating-hearts {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            animation: popupAnim 1s ease-out;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        @keyframes popupAnim {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 15s linear infinite;
+            font-size: 20px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .heart {
+            font-size: 180px;
+            color: var(--primary-pink);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            animation: heartbeat 1.5s infinite alternate;
+            display: inline-block;
+            margin-bottom: -40px;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .title {
+            font-size: 90px;
+            font-family: 'Great Vibes', cursive;
+            color: white;
+            text-shadow: 0 0 20px var(--primary-pink), 0 0 40px rgba(255, 126, 95, 0.5);
+            margin: 20px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, white, transparent);
+        }
+
+        /* Message Section */
+        .message-container {
+            perspective: 1000px;
+            margin: 60px auto;
+            max-width: 800px;
+        }
+
+        .message {
+            font-size: 24px;
+            line-height: 1.8;
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+
+        .message::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                          transparent 65%, 
+                          rgba(255, 255, 255, 0.1) 65%, 
+                          rgba(255, 255, 255, 0.1) 70%, 
+                          transparent 70%),
+                        linear-gradient(-45deg, 
+                          transparent 65%, 
+                          rgba(255, 255, 255, 0.1) 65%, 
+                          rgba(255, 255, 255, 0.1) 70%, 
+                          transparent 70%);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .message p {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative Elements */
+        .decorative-heart {
+            position: absolute;
+            font-size: 30px;
+            color: var(--primary-pink);
+            opacity: 0.7;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Interactive Box */
+        .gift-box {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            margin: 60px auto;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                          transparent 48%, 
+                          rgba(255, 255, 255, 0.3) 48%, 
+                          rgba(255, 255, 255, 0.3) 52%, 
+                          transparent 52%);
+            background-size: 20px 20px;
+            opacity: 0.5;
+        }
+
+        .box-content {
+            text-align: center;
+            color: white;
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .box-content span {
+            display: block;
+            font-size: 20px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .ribbon {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            top: -10px;
+            right: -10px;
+        }
+
+        .ribbon::before,
+        .ribbon::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 200px;
+            height: 30px;
+            background-color: var(--gold);
+            transform: rotate(45deg);
+            top: 40px;
+            right: -50px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ribbon::after {
+            transform: rotate(-45deg);
+            top: 70px;
+            right: -50px;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .popup-content {
-            background: white;
-            padding: 30px;
+            background: linear-gradient(135deg, #fff1f2, #ffeef0);
             border-radius: 25px;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
             text-align: center;
-            width: 50%;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
-            animation: popupContentAnim 1.5s ease-in-out;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.5s ease;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
         }
 
-        @keyframes popupContentAnim {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
         }
 
-        .popup h2 {
-            font-size: 25px;
-            color: #24211f;
-            margin-bottom: 25px;
-            font-family: 'Dancing Script', cursive;    
+        .popup-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: var(--dark-pink);
+            margin-bottom: 30px;
         }
 
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
 
-        .popup button {
-            background-color: #f783f3;
-            color: white;
-            font-size: 24px;
-            padding: 18px 40px;
+        .popup-btn {
+            padding: 15px 30px;
             border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .popup button:hover {
-            background-color: #d15ac1;
-            transform: scale(1.1);
-        }
-
-        .sticker {
-            position: absolute;
-            top: -40px;
-            right: 10px;
-            animation: bounce 2s infinite ease-in-out;
-            z-index: 10;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .click-to-open {
-            font-size: 28px;
-            font-family: 'Great Vibes', cursive;
-            color: #fff;
-            background-color: #ff385c;
-            padding: 20px;
             border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
             cursor: pointer;
-            animation: clickToOpenAnim 1.5s ease-in-out;
-            transition: transform 0.3s ease;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            min-width: 120px;
         }
 
-        @keyframes clickToOpenAnim {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .click-to-open:hover {
-            transform: scale(1.1);
-        }
-
-        .falling-text {
-            display: none;
-            font-size: 24px;
+        .popup-btn.yes {
+            background: linear-gradient(to right, var(--primary-pink), var(--dark-pink));
             color: white;
-            animation: fallingTextAnim 1.5s ease-out;
+            box-shadow: 0 5px 15px rgba(232, 67, 99, 0.4);
         }
 
-        @keyframes fallingTextAnim {
-            0% { opacity: 0; transform: translateY(-30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .popup-btn.no {
+            background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+            color: #555;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .heart-sticker {
+        .popup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(232, 67, 99, 0.6);
+        }
+
+        .popup-btn:active {
+            transform: translateY(1px);
+        }
+
+        .music-note {
             position: absolute;
-            bottom: -30px;
-            left: 15px;
-            font-size: 40px;
-            animation: floatUp 3s infinite ease-in-out;
+            font-size: 24px;
+            color: var(--primary-pink);
+            opacity: 0;
+            animation: float-note 3s linear infinite;
         }
 
-        @keyframes floatUp {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes float-note {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Confetti Effect */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: 999;
+            animation: confetti-fall 5s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 60px;
+            }
+            
+            .heart {
+                font-size: 120px;
+            }
+            
+            .message {
+                font-size: 20px;
+                padding: 25px;
+            }
+            
+            .gift-box {
+                width: 250px;
+                height: 120px;
+            }
+            
+            .box-content {
+                font-size: 26px;
+            }
+            
+            .popup-content {
+                padding: 30px;
+            }
+            
+            .popup-content h2 {
+                font-size: 28px;
+            }
+            
+            .popup-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Cursor Effects */
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 77, 121, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: multiply;
         }
     </style>
 </head>
 <body>
-    <div class="heart">❤️</div>
+    <!-- Cursor Follower -->
+    <div class="cursor-follower"></div>
 
-    <div class="title">Wanna Be Yours🥹</div>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
 
-    <div class="message">
-        <p>In a world full of infinite possibilities, you are my favorite constant. Just as every great program needs a solid foundation, my heart found its home with you. Your smile brightens my darkest days, and your laughter is the sweetest melody that fills my soul. Every moment spent with you feels like magic, where time stands still and everything else fades away. I want to be by your side through all of life’s adventures, from the mundane to the extraordinary. Just like how a beautiful story unfolds, I dream of writing our own together—filled with laughter, love, and countless memories. You inspire me to be the best version of myself, and I can’t imagine my life without you. I want to be the one who supports your dreams, shares your joys, and stands by you during the tough times. With you, I feel like I can conquer anything. So, from the bottom of my heart, I want to say: Just wanna be yours. Let’s embark on this journey together and create a love story that’s uniquely ours. You truly make my heart feel complete! My heart beats faster every time I think of you. You have this magic, this radiance that makes everything feel like a beautiful dream. From the moment I saw you, I knew you were the one who could fill my life with endless happiness. Every smile, every laugh, every word—everything about you pulls me deeper into a world I never want to leave. Would you be mine, forever and always, and make my heart yours? 💖</p>
-    </div>
+    <div class="container">
+        <div class="header">
+            <div class="heart">🎀</div>
+            <h1 class="title animate__animated animate__fadeIn">Wanna Be Yours</h1>
+        </div>
 
-    <div class="box">
-        <div class="click-to-open" id="clickToOpen">Click to Open</div>
-        <div class="falling-text" id="fallingText">Click for Surprise 🎁</div>
-    </div>
+        <div class="message-container">
+            <div class="message animate__animated animate__fadeInUp">
+                <p>My love,</p>
+                <p>From the moment our paths crossed, my life transformed into something extraordinary. Your smile brightens my darkest days, your laughter is the melody that plays in my heart, and your love is the compass that guides me through life.</p>
+                <p>Every moment with you feels like a beautiful dream I never want to wake from. Your kindness, your strength, your beautiful soul - these are the treasures I cherish more than anything in this world.</p>
+                <p>I want to be the one who stands by your side through all of life's adventures, who celebrates your joys and comforts you in sorrow. I want to be your safe haven, your biggest fan, and your forever love.</p>
+                <p>With you, I've found a love so pure, so deep, that words can scarcely capture its essence. You are my today and all of my tomorrows.</p>
+                <p>Forever yours,</p>
+                <p>Your Ansh</p>
+            </div>
+        </div>
 
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <h2>Can I Play a Sweet Song for You? 🎶💖
-             It's a special song just for you! 💕</h2>
-            <button onclick="playMusic()">Yes</button>
-            <button onclick="playMusic()">No</button>
+        <!-- Interactive Gift Box -->
+        <div class="gift-box" id="giftBox">
+            <div class="box">
+                <div class="ribbon"></div>
+                <div class="box-content">
+                    Open Your Gift
+                    <span>Click to reveal a special surprise</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ for you - Forever and Always
         </div>
     </div>
 
-    <!-- Cute Sticker -->
-    <img src="op.png" alt="Sticker" class="sticker" />
+    <!-- Music Popup -->
+    <div class="popup-overlay" id="musicPopup">
+        <div class="popup-content">
+            <h2>May I play a song that reminds me of you? 🎶</h2>
+            <div class="popup-buttons">
+                <button class="popup-btn yes" id="playMusicBtn">Yes, Please!</button>
+                <button class="popup-btn no" id="closePopupBtn">Not Now</button>
+            </div>
+        </div>
+    </div>
 
-    <audio id="backgroundMusic" src="hbd.mp3"></audio>
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="hbd.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
-        // On click, display the falling text
-        document.getElementById("clickToOpen").onclick = function() {
-            document.getElementById("fallingText").style.display = "block";
-            document.getElementById("fallingText").classList.add('falling-text');
-            setTimeout(function() {
-                document.getElementById("fallingText").innerHTML = "Click for Surprise 🎁";
-            }, 500);
-        };
-
-        // Show music popup after 2 seconds
-        window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('popup').style.display = 'flex';
-            }, 2000); // Popup appears after 2 seconds
-        };
-
-        // Function to play music
-        function playMusic() {
-            var music = document.getElementById('backgroundMusic');
-            music.play();
-
-            // Close the popup after music starts
-            document.getElementById('popup').style.display = 'none';
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${10 + Math.random() * 10}s`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.fontSize = `${15 + Math.random() * 20}px`;
+                container.appendChild(heart);
+            }
         }
 
-        // Function to open the surprise site
-        function openSurprise() {
-            window.location.href = " https://ansh-gupta-technical.github.io/Do-you/"; // Replace with the actual URL
+        // Cursor follower effect
+        const cursorFollower = document.querySelector('.cursor-follower');
+        document.addEventListener('mousemove', (e) => {
+            cursorFollower.style.left = `${e.clientX}px`;
+            cursorFollower.style.top = `${e.clientY}px`;
+        });
+
+        // Gift box interaction
+        const giftBox = document.getElementById('giftBox');
+        giftBox.addEventListener('click', () => {
+            // Create confetti effect
+            createConfetti();
+            
+            // Open the surprise link after a delay
+            setTimeout(() => {
+                window.location.href = "https://ansh-gupta-technical.github.io/Do-you/";
+            }, 2000);
+        });
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff4d79', '#ff85a2', '#ffd700', '#ffffff', '#e84363'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${5 + Math.random() * 10}px`;
+                confetti.style.height = `${5 + Math.random() * 10}px`;
+                confetti.style.animationDuration = `${3 + Math.random() * 4}s`;
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
         }
 
-        // Update falling text behavior
-        document.getElementById("fallingText").onclick = openSurprise;
+        // Music popup
+        const musicPopup = document.getElementById('musicPopup');
+        const playMusicBtn = document.getElementById('playMusicBtn');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        
+        // Show popup after delay
+        setTimeout(() => {
+            musicPopup.classList.add('active');
+        }, 3000);
+
+        // Play music
+        playMusicBtn.addEventListener('click', () => {
+            backgroundMusic.play();
+            createMusicNotes();
+            musicPopup.classList.remove('active');
+        });
+
+        // Close popup
+        closePopupBtn.addEventListener('click', () => {
+            musicPopup.classList.remove('active');
+        });
+
+        // Create floating music notes
+        function createMusicNotes() {
+            const notes = ['♪', '♫', '♩', '♬', '♭'];
+            const container = document.body;
+            
+            setInterval(() => {
+                const note = document.createElement('div');
+                note.classList.add('music-note');
+                note.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+                note.style.left = `${10 + Math.random() * 80}%`;
+                note.style.animationDuration = `${2 + Math.random() * 3}s`;
+                container.appendChild(note);
+                
+                // Remove note after animation
+                setTimeout(() => {
+                    note.remove();
+                }, 3000);
+            }, 300);
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            createFloatingHearts();
+            
+            // Animate elements sequentially
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            animatedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = 1;
+                }, index * 200);
+            });
+        });
+
+        // Photo gallery hover effect
+        const photoItems = document.querySelectorAll('.photo-item');
+        photoItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.querySelector('img').style.transform = 'scale(1.1)';
+                item.querySelector('.photo-caption').style.transform = 'translateY(0)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('img').style.transform = 'scale(1)';
+                item.querySelector('.photo-caption').style.transform = 'translateY(100%)';
+            });
+        });
     </script>
 </body>
 </html>
